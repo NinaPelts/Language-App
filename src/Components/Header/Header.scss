@@ -1,0 +1,42 @@
+@import '../../style/vars';
+@import '../../style/fonts';
+
+.header_container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: $primary-color;
+
+    .navbar {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        
+        .link_container {
+
+            .nav_link {
+                text-decoration: none;
+                color: $secondary-color; 
+                @extend %text-font;
+                font-size: 18px;
+                margin-right: 20px;
+            }
+            .nav_link:last-child {
+                margin-right: 0;
+            }
+            .active {
+                text-decoration: underline;
+            }
+        }
+      
+        .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+    
+        }
+    }
+    
+   
+}

@@ -1,0 +1,33 @@
+@import '../../style/fonts';
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    height: 250px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    @extend %text-font;
+    .title {
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+    .untertitle {
+        margin-bottom: 10px;
+    }
+    .button {
+        padding: 8px;
+        background-color: rgb(83, 154, 83);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .translation {
+        color: rgb(83, 154, 83);
+    }
+}

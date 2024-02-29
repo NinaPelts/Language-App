@@ -1,0 +1,21 @@
+@import '../../style/vars';
+@import '../../style/fonts';
+
+
+.error_page {
+    margin: 0 auto;
+    width: 500px;
+    height: 500px;
+
+    .error_page_title, .error_page_untertitle {
+        @extend %title-font;
+        text-align: center;
+        color: $secondary-color;
+        text-transform: uppercase;
+    }
+    .error_image {
+       height: 100%;
+       width: 100%;
+       object-fit: cover;
+    }
+}
