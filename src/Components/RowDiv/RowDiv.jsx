@@ -6,7 +6,7 @@ import btnSave from '../../assets/images/save.png'
 import btnCancel from '../../assets/images/cancel.png'
 
 
-export default function RowDiv({item, handleDeleteWord, saveChanges}){
+export default function RowDiv({item, deleteItem, saveChanges}){
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedWord, setEditedWord] =useState(
@@ -64,7 +64,7 @@ export default function RowDiv({item, handleDeleteWord, saveChanges}){
           <span className='table_cell'><input type="text" className={`${!editedWord.transcription ? 'error' : ''}`} value={editedWord.transcription} onChange={(event)=>{handleChange('transcription', event.target.value)}}/></span>
           <span className='table_cell'><input type="text" className={`${!editedWord.russian ? 'error' : ''}`} value={editedWord.russian} onChange={(event)=>{handleChange('russian', event.target.value)}}/></span>
           <div className="buttons_container">
-          <button className='table_button' onClick={handleSave}><img className='image'  src={btnSave} alt='Save button'></img></button> 
+          <button className='table_button' onClick={handleSave} disabled={!isField}><img className='image'  src={btnSave} alt='Save button'></img></button> 
           <button className='table_button' onClick={handleCancel}><img className='image' src={btnCancel} alt='Cancel button'></img></button>
           </div>
           </div>
@@ -77,7 +77,7 @@ export default function RowDiv({item, handleDeleteWord, saveChanges}){
           <span className='table_cell'>{item.russian}</span>
           <div className="buttons_container">
           <button className='table_button' onClick={handleEdit}><img className='image' src={btnEdit} alt='Edit button'></img></button>
-          <button className='table_button' onClick={handleDeleteWord}><img className='image' src={btnDelete} alt='Delete button'></img></button> 
+          <button className='table_button' onClick={deleteItem}><img className='image' src={btnDelete} alt='Delete button'></img></button> 
           </div>
           </div>
         </>

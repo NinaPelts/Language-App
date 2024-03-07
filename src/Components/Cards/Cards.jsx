@@ -1,25 +1,30 @@
-import { useState, useEffect, useRef, forwardRef } from 'react';
+import { useState, useEffect } from 'react';
 import './Cards.scss'
 
 export default function Cards({word, handleWords}) {
-    const [pressed, setPressed] = useState(false);
+    const [translation, setTranslation] = useState(false);
+    const [isAdded, setIsAdded] = useState(false);
   
-    const handlePressed = () => {
-        setPressed(!pressed);
+    const showTranslation = () => {
+        setTranslation(true);
+        if (isAdded) {
+            setIsAdded(true)
+        }
+
     }
  
     useEffect(() => {
-        setPressed(false);
+        setTranslation(false);
     }, [word])
 
     return (<div className='card-container'>
    <h3 className='title'>{word.english}</h3>
         <p className='untertitle'>{word.transcription}</p>
         <div className='button-container'>
-        {pressed ? <p className='translation'>{word.russian}</p> 
-        : <button className='button' onClick={() => {
-        handlePressed();
-        handleWords()
+        {translation ? <p className='translation'>{word.russian}</p> 
+        : <button className='button' onClick={()=> {
+            handleWords()
+            showTranslation()
         }}>Проверить</button>}
         </div>
     </div> 

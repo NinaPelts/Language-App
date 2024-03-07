@@ -1,40 +1,71 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import "./Home.scss"
-import data from '../../data.json';
 import RowDiv from "../../Components/RowDiv/RowDiv"
+import AddWord from "../../Components/AddWord/AddWord";
+import { ContextWords } from "../../Context/ContextWords";
+
 
 export default function Home() {
-    // добавляем состояние для данных
-    const [items, setItems] = useState(data);
+    //  Берем данные из context
+    const {dataServer, setDataServer} = useContext(ContextWords);
     
-    // функция удаления слов
-    const handleDeleteWord = (id) => {
-    const updateList = items.filter((item) => item.id !== id);
-    setItems(updateList); 
+    // Удаление элемента из API
+    const deleteItem = async (id) => {
+        try {
+            await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/delete`, {
+                method: "POST",
+            }); 
+            const updateList = dataServer.filter((item) => item.id !== id);
+            setDataServer(updateList);
+        } catch (error) {
+            console.error(error);
+             return false;
+        }
     }
-  
-    // функция сохранения измененных слов
-    const saveChanges = (id, editedEnglish, editedTranscription, editedRussian) => {
-    const updateList = items.map((item) => {
-    if (item.id === id) {
-        return {
-            ...item,
+
+    // // функция сохранения измененных слов
+    const saveChanges = async (id, editedEnglish, editedTranscription, editedRussian) => {
+    const newData = {
             english: editedEnglish,
             trancription: editedTranscription,
             russian: editedRussian
         };
+        try {
+            await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/update`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newData),
+            })
+            .then((data) => {
+                console.log("Данные изменены:", data);
+            })
+            const updateList = dataServer.map((item) => {
+                if (item.id === id) {
+                    return {
+                        ...item,
+                        english: editedEnglish,
+                        trancription: editedTranscription,
+                        russian: editedRussian,
+                    };
+                }
+                return item;
+            });
+            setDataServer(updateList);
+        } catch (error) {
+            console.error(error);
+        }
     }
-    return item;
 
-  });
 
-  setItems(updateList);
-}
+
     return (
         <>
+        <AddWord/>
         <div>
-        { items.map((item) => {
-        return <RowDiv id={item.id} item={item} key={item.id} handleDeleteWord={() => handleDeleteWord(item.id)} saveChanges={saveChanges}/>;
+        { dataServer.map((item) => {
+        return <RowDiv id={item.id} item={item} key={item.id} deleteItem={() => deleteItem(item.id)} saveChanges={saveChanges} />;
         })}
         </div>
         </>

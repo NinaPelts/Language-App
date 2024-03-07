@@ -1,0 +1,12 @@
+@import '../../style/vars';
+
+.empty {
+    background-color: rgba(231, 233, 230);
+}
+.button_add {
+    padding: 5px;
+    color: #fff;
+    background-color: $secondary-color;
+    border: none;
+    border-radius: 10px;
+}
